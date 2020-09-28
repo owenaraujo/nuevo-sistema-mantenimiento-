@@ -1,0 +1,157 @@
+<% extend('layout/layout') %><%- include ('partials/nav') %>
+<h1 class="text-center p-3">Inventario de Productos</h1>
+<div id="loader" class="d-none">
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <div
+          class="alert alert-success alert-dismissible fade show text-center"
+          role="alert"
+        >
+          cargando
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include ('partials/mensaje')%>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-4 d-flex justify-content-center">
+      <button id="btnGetProduct" class="btn btn-danger">
+        Productos Registrados
+      </button>
+    </div>
+    <div
+      class="col-12 col-md-8 d-flex justify-content-between align-items-center"
+    >
+      <input type="text" name="" id="search" class="form-control" />
+      <button class="btn btn-warning" id="btnSearch">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="caja primary-color">
+  <i class="fas fa-plus" data-toggle="modal" data-target="#centralModalSm"></i>
+</div>
+
+<!-- Central Modal Small -->
+<div
+  class="modal fade"
+  id="centralModalSm"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-sm" role="document">
+    <form id="form">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100" id="myModalLabel">
+            Registro de Productos
+          </h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="notificacionAdd" class="alert alert-info p-2 d-none">
+            Producto agregado con exito
+            <button id="notificacionRemove" class="close">
+              <span id="notificacionRemove" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- body  -->
+          <div class="form-group">
+            <select
+              class="form-control"
+              _msthash="2736318"
+              _msttexthash="1130220"
+              id="categoria"
+              class="mb-4"
+              aria-placeholder="categoria"
+            >
+              <option selected disabled _istranslated="1">cateogoria</option>
+              <option value="accesorios">accesorios</option>
+              <option value="repuestos">repuestos</option>
+              <option value="almacenamiento">
+                dispositivo de almacenamiento
+              </option>
+              <option value="pieza compu">componente de computadora</option>
+
+              <option value="medicion">medicion</option>
+              <option value="corte">corte</option>
+            </select>
+          </div>
+          <div>
+            <input id="providerModal" name="idProvider" type="hidden" />
+            <input
+              type="text"
+              id="producto"
+              class="form-control mb-4"
+              placeholder="Nombre del producto"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="codificacion"
+              class="form-control mb-4"
+              placeholder="codificacion"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="precio_mayor"
+              class="form-control mb-4"
+              placeholder="precio al por mayor"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="precio_menor"
+              class="form-control mb-4"
+              placeholder="precio unitario"
+            />
+          </div>
+          <!-- body -->
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="saveProduct" class="btn btn-primary btn-sm">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Central Modal Small -->
+
+<!-- tabla -->
+<div class="p-4"></div>
+<div class="container-fluid mt-3">
+  <div class="card">
+    <table class="table table-hover table-sm text-center text-capitalize">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>codificacion</th>
+        </tr>
+      </thead>
+      <tbody id="listProduct"></tbody>
+    </table>
+  </div>
+</div>
+<!-- tabla -->
+<script src="/productos.js"></script>

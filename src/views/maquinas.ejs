@@ -1,0 +1,152 @@
+<% extend('layout/layout') %><%- include ('partials/nav') %>
+<h1 class="text-center">Inventario de Equipos</h1>
+<%- include ('partials/mensaje')%>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-4 d-flex justify-content-center">
+      <button id="btnGetMachine" class="btn btn-danger">
+        Equipos registrados
+      </button>
+    </div>
+    <div
+      class="col-12 col-md-8 d-flex justify-content-between align-items-center"
+    >
+      <input type="text" name="" id="search" class="form-control" />
+      <button class="btn btn-warning" id="btnSearch">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="caja primary-color">
+  <i class="fas fa-plus" data-toggle="modal" data-target="#centralModalSm"></i>
+</div>
+<div id="loader" class="alert alert-info p-2 d-none">Cargando...</div>
+<!-- Central Modal Small -->
+<div
+  class="modal fade"
+  id="centralModalSm"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-md" role="document">
+    <form id="formM">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100" id="myModalLabel">
+            Registro de Equipos
+          </h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="notificacionAdd" class="alert alert-info p-2 d-none">
+            herramienta agregada con exito
+            <button id="notificacionRemove" class="close">
+              <span id="notificacionRemove" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- body  -->
+          <div class="form-group">
+            <input
+              type="text"
+              id="equipo"
+              class="form-control"
+              placeholder="equipo"
+            />
+          </div>
+          <div class="row px-3 mb-2 justify-content-between">
+            <select
+              class="form-control w-50"
+              _msthash="2736318"
+              _msttexthash="1130220"
+              id="tipo"
+            >
+              <option selected disabled _istranslated="1">tipo</option>
+              <option value="1">electrica</option>
+              <option value="2">mecanica</option>
+              <option value="3">hidraulica</option>
+            </select>
+            <input
+              type="text"
+              id="codificacion"
+              class="form-control w-45"
+              placeholder="codificacion"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              id="serial"
+              class="form-control mb-2"
+              placeholder="serial"
+            />
+          </div>
+          <div class="row px-3 mb-2 justify-content-between">
+            <input
+              type="text"
+              id="marca"
+              class="form-control w-50"
+              placeholder="marca"
+            />
+            <input
+              type="text"
+              id="modelo"
+              class="form-control w-45"
+              placeholder="modelo"
+            />
+          </div>
+          <div>
+            <textarea
+              id="funcionamiento"
+              type="text"
+              class="form-control mb-2"
+              placeholder="funcionamiento y manejo"
+            ></textarea>
+          </div>
+          <div>
+            <textarea
+              id="observaciones"
+              type="text"
+              class="form-control"
+              placeholder="observaciones"
+            ></textarea>
+          </div>
+          <!-- body -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            id="btnSaveMachine"
+            class="btn btn-primary btn-sm"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Central Modal Small -->
+
+<div class="p-4"></div>
+<div class="container-fluid">
+  <div id="loader" class="alert alert-info p-2 d-none">Cargando...</div>
+</div>
+<div class="container-fluid p-4">
+  <div
+    class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4"
+    id="listMachine"
+  ></div>
+</div>
+<script src="/maquinas.js"></script>
