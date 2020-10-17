@@ -19,12 +19,14 @@ const setTableMachine = (machines) => {
         <div class="card-body">
           <h5 class="card-title" _msthash="1919515" _msttexthash="852384">Nombre:${machine.equipo} </h5>
           <hr>
+          
         </div>
         <div class="card-body">
         </div>
         <div class="card-body">
           <a href="/productos/editproduct/{{id}}" class="btn btn-warning">editar</a>
           <a href="/delete/${machine.id}" class="btn btn-danger">eliminar</a>
+          <a href="/views/maquinas/piezas/${machine.id}" class="btn btn-danger">piezas</a>
         </div>
         <div class="card-footer text-muted" _msthash="1664169" _msttexthash="144235"> Creado: ${machine.creacion}
         </div>
@@ -48,7 +50,6 @@ const getMachines = async () => {
 };
 // add machine-------->
 const addMachine = async () => {
-  notificacionAdd.classList.remove("d-none");
   try {
     await axios.post(
       "/post/maquinas/",
@@ -64,6 +65,8 @@ const addMachine = async () => {
       })
     );
     $("#formM")[0].reset();
+    notificacionAdd.classList.remove("d-none");
+
     getMachines();
   } catch (err) {
     console.log("epa hay algo mal");

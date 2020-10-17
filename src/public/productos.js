@@ -75,7 +75,6 @@ btnSaveProduct.addEventListener("click", (e) => {
     precio_menor.value,
     precio_mayor.value
   );
-  console.log(categoria.value);
 });
 notificacionRemove.addEventListener("click", (e) => {
   e.preventDefault();

@@ -1,0 +1,176 @@
+<%- extend ('layout/layout',{title : 'piezas'})%> <%- include ('partials/nav')%>
+<h1 class="text-center p-3">piezas de <%= id %></h1>
+<h1 class="text-center p-3">piezas de <%= name[0].equipo %></h1>
+<div id="loader" class="d-none">
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-md-4 mx-auto">
+        <div
+          class="alert alert-success alert-dismissible fade show text-center"
+          role="alert"
+        >
+          cargando
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include ('partials/mensaje')%>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-4 d-flex justify-content-center">
+      <button id="btnGetherramienta" class="btn btn-danger">
+        piezas registradas
+      </button>
+    </div>
+    <form action="/post/piezas/add" method="post">
+      <input name="pieza_equipo_id" type="text" value="<%= id %>" />
+      <input type="text" name="nombre_pieza" placeholder="nombre" />
+    <button type="submit">submit</button>
+    </form>
+    
+    <div
+      class="col-12 col-md-8 d-flex justify-content-between align-items-center"
+    >
+      <input type="text" name="" id="search" class="form-control" />
+      <button class="btn btn-warning" id="btnSearch">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="caja primary-color">
+  <i class="fas fa-plus" data-toggle="modal" data-target="#centralModalSm"></i>
+</div>
+
+<!-- Central Modal Small -->
+<div
+  class="modal fade"
+  id="centralModalSm"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-sm" role="document">
+    <form id="form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">
+            Agrega una herramienta
+          </h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="notificacionAdd" class="alert alert-info p-2 d-none">
+            herramienta agregada con exito
+            <button id="notificacionRemove" class="close">
+              <span id="notificacionRemove" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="form-group">
+            <select
+              class="form-control"
+              _msthash="2736318"
+              _msttexthash="1130220"
+              id="tipo"
+              id=""
+              class="mb-4"
+            >
+              <option selected="" _istranslated="1">tipo de herramienta</option>
+              <option value="fas fa-cogs">mecanicas</option>
+              <option value="far fa-hand-paper">manual</option>
+              <option value="fas fa-tools">montaje</option>
+              <option value="fas fa-hammer">golpe</option>
+              <option value="fas fa-pencil-ruler">medicion</option>
+              <option value="fas fa-cut">corte</option>
+            </select>
+          </div>
+          <div>
+            <input
+              type="text"
+              id="nombre"
+              class="form-control mb-4"
+              placeholder="nombre de la herramienta"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="detalles"
+              class="form-control mb-4"
+              placeholder="detalles"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="cantidad"
+              class="form-control mb-4"
+              placeholder="cantidad"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            data-dismiss="modal"
+          >
+            cerrar
+          </button>
+          <button
+            id="saveHerramienta"
+            type="submit"
+            class="btn btn-primary btn-sm"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Central Modal Small -->
+
+<div class="p-4"></div>
+
+<!-- Tabla-->
+
+<div class="container-fluid mt-3">
+  <div class="card">
+    <table class="table table-hover table-sm text-center text-capitalize">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>npmbre</th>
+          <th>piezas</th>
+          <th>detalles</th>
+          <th>clase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% piezas.forEach(p => {%>
+        <tr>
+          <th><%= ++i %></th>
+          <th><%= p.subsistema %></th>
+          <th><%= p.codificacion %></th>
+          <th><%= p.nombre_pieza %></th>
+          <th><%= p.clase %></th>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- <--Tabla -->
+<script src="/herramientas.js"></script>

@@ -5,6 +5,7 @@ const expresiones = {
   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   telefono: /^\d{7,14}$/, // 7 a 14 numeros.
   cod: /^([a-z]{2})\-([\d]{1})/, // 7 a 14 numeros.
+  serial: /([a-z0-9])/g,
 };
 
 const validateUser = (el) => {
@@ -40,25 +41,55 @@ const replaceNumber = (el) => {
   let str = el.value;
   el.value = str.replace(/\D/g, "").replace(/^([0-9]{2})/, "+$1 ");
 };
-
+// validate codificacion
 const validateCod = (el) => {
-  let msg = document.querySelector("#msgCod");
+  let msg = document.querySelector("#codificacion");
   let str = el.value;
-  el.value = str.replace(/^([a-z]{2})([0-9]{2})/, "$1-$2");
+  el.value = str
+    .replace(/^([a-z]{2})([0-9]{2})/, "$1-$2")
+    .replace(/^([a-z]{3})/, "")
+    .replace(/^([0-9]{1})/, "")
+    
 
   if (el.value === "") {
-    msg.textContent = "Completa este campo";
-    msg.classList.remove("d-none");
+    // msg.textContent = "Completa este campo";
+    msg.classList.add("is-invalid");
     return;
   }
 
   if (!expresiones.cod.test(el.value)) {
-    msg.textContent = "Formato no valido";
-    msg.classList.remove("d-none");
+    // msg.textContent = "Formato no valido";
+    msg.classList.add("is-invalid");
     return;
   }
-  msg.classList.add("d-none");
+  msg.classList.remove("is-invalid");
+  msg.classList.add("is-valid");
   msg.textContent = "";
+};
+// validate codificacion
+const validateSer = (el) => {
+  let msg = document.querySelector("#serial");
+  let str = el.value;
+  el.value = str
+    .replace(/([a-z0-9]{4})/g,'$&-')
+    
+    .replace(/(-{2})/g, "-")
+
+
+  if (el.value === "") {
+    // msg.textContent = "Completa este campo";
+    msg.classList.add("is-invalid");
+    return;
+  }
+
+  if (!expresiones.serial.test(el.value)) {
+    // msg.textContent = "Formato no valido";
+    msg.classList.add("is-invalid");
+    return;
+  }
+  msg.classList.remove("is-invalid");
+  msg.classList.add("is-valid");
+  // msg.textContent = "";
 };
 const setProviderModal = (id) => {
   const providerModal = document.querySelector("#providerModal");

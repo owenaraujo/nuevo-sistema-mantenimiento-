@@ -5,7 +5,12 @@ body {
 .hv-100 {
   height: 100vh;
 }
-
+.textSelected {
+  user-select: none;
+}
+.w-45 {
+  width: 45%;
+}
 .font-small {
   font-size: 0.74rem;
 }
@@ -71,10 +76,13 @@ body {
   align-items: center;
   font-size: 1.5rem;
 }
+.ajuste {
+  position: relative;
+}
 .caja {
   width: 50px;
   height: 50px;
-  /* position: absolute; */
+  position: absolute;
   right: 1rem;
   /* top: 0.25rem; */
   /* left: 0rem; */
@@ -117,4 +125,26 @@ body {
 }
 .margin {
   margin: 5px;
+}
+
+.list-scroll {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.c-hand {
+  cursor: pointer;
+  opacity: 0.9;
+  transition: all 0.5s ease;
+}
+.c-hand:hover {
+  opacity: 1;
+}
+.c-hand:active {
+  transform: scale(0.95);
+}
+@media screen and (max-width: 640px) {
+  .list-scroll {
+    height: calc(80vh / 3);
+  }
 }

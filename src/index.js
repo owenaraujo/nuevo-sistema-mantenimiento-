@@ -46,6 +46,7 @@ app.use("/req", require("./routes/req"));
 app.use("/post", require("./routes/post"));
 app.use("/delete", require("./routes/delete"));
 app.use("/edit", require("./routes/edit"));
+app.use("/mantenimiento", require("./routes/mantain"));
 // public
 app.use(express.static(path.join(__dirname, "public")));
 

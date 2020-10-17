@@ -3,6 +3,16 @@ const router = express.Router();
 const pool = require("../database");
 
 const app = express();
+// proveedores
+router.post("/proveedores", async (req, res) => {
+  const { nombre, telefono, correo } = req.body;
+  const proveedor = { nombre, telefono, correo, user_id: req.user.id };
+  const addProveedor = await pool.query(" insert into proveedores set ?", [
+    proveedor,
+  ]);
+  res.json(addProveedor);
+});
+// proveedores
 // productos ---->
 router.post("/productos/", async (req, res) => {
   const {
@@ -70,5 +80,56 @@ router.post("/herramientas/", async (req, res) => {
   res.json(newherramienta);
 });
 // <---- herramientas
+// piezas ---->
+router.post("/piezas/add", async (req, res) => {
+  const {
+    nombre_pieza,
+    pieza_equipo_id,
+    detalles,
+    subsistema,
+    funcionamiento,
+    medidas,
+    codificacion,
+  } = req.body;
+  const pieza = {
+    nombre_pieza,
+    pieza_equipo_id,
+    detalles,
+    subsistema,
+    funcionamiento,
+    medidas,
+    codificacion,
+  };
+  const addpieza = await pool.query("insert into piezas set ?", [pieza]);
+
+  res.json(addpieza);
+});
+// <-----piezas
+// post
+router.post("/mantenimiento/add/", async (req, res) => {
+  const { tipo, descripcion, frecuencia, piezas_id, equipo_id } = req.body;
+  const mantenimiento = {
+    tipo,
+    descripcion,
+    // personal,
+    frecuencia,
+    piezas_id,
+    equipo_id,
+  };
+
+  try {
+    const addmantience = await pool.query(
+      "INSERT INTO  mantenimiento_piezas SET ?",
+      [mantenimiento]
+    );
+    res.json(addmantience);
+  } catch (error) {
+    console.log(error);
+    res.send({
+      msg: "XDXD",
+    });
+  }
+});
+// post
 module.exports = router;
 app;
