@@ -48,48 +48,38 @@ const validateCod = (el) => {
   el.value = str
     .replace(/^([a-z]{2})([0-9]{2})/, "$1-$2")
     .replace(/^([a-z]{3})/, "")
-    .replace(/^([0-9]{1})/, "")
-    
+    .replace(/^([0-9]{1})/, "");
 
   if (el.value === "") {
-    // msg.textContent = "Completa este campo";
-    msg.classList.add("is-invalid");
+    msg.classList.remove("is-invalid");
+    msg.classList.remove("is-valid");
     return;
   }
 
   if (!expresiones.cod.test(el.value)) {
-    // msg.textContent = "Formato no valido";
     msg.classList.add("is-invalid");
     return;
   }
   msg.classList.remove("is-invalid");
   msg.classList.add("is-valid");
-  msg.textContent = "";
 };
 // validate codificacion
 const validateSer = (el) => {
   let msg = document.querySelector("#serial");
   let str = el.value;
-  el.value = str
-    .replace(/([a-z0-9]{4})/g,'$&-')
-    
-    .replace(/(-{2})/g, "-")
-
-
-  if (el.value === "") {
-    // msg.textContent = "Completa este campo";
-    msg.classList.add("is-invalid");
-    return;
-  }
+  el.value = str.replace(/([a-z0-9]{4})/g, "$&-").replace(/(-{2})/g, "-");
 
   if (!expresiones.serial.test(el.value)) {
-    // msg.textContent = "Formato no valido";
     msg.classList.add("is-invalid");
+    msg.classList.remove("is-valid");
+    return;
+  }
+  if (el.value === "") {
+    msg.classList.remove("is-invalid");
     return;
   }
   msg.classList.remove("is-invalid");
   msg.classList.add("is-valid");
-  // msg.textContent = "";
 };
 const setProviderModal = (id) => {
   const providerModal = document.querySelector("#providerModal");

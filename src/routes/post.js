@@ -21,6 +21,7 @@ router.post("/productos/", async (req, res) => {
     categoria,
     precio_menor,
     precio_mayor,
+    proveedor_id,
   } = req.body;
   const productos = {
     producto,
@@ -28,6 +29,7 @@ router.post("/productos/", async (req, res) => {
     categoria,
     precio_menor,
     precio_mayor,
+    proveedor_id,
   };
   const addproduct = await pool.query("insert into lista_productos set ?", [
     productos,

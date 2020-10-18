@@ -30,5 +30,8 @@ router.get("/maquinas/piezas/:id", isLoggedIn, async (req, res) => {
 router.get("/proveedores/", isLoggedIn, (req, res) => {
   res.render("proveedores", { title: "proveedores" });
 });
+router.get("/test/", isLoggedIn, (req, res) => {
+  res.render("test", { title: "test" });
+});
 module.exports = router;
 app;

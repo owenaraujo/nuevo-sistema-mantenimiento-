@@ -1,4 +1,3 @@
-const btnGetProducts = document.querySelector("#btnGetProduct");
 const form = document.querySelector("#form");
 const listProduct = document.querySelector("#listProduct");
 const loader = document.querySelector("#loader");
@@ -7,6 +6,7 @@ const notificacionRemove = document.querySelector("#notificacionRemove");
 const notificacionAdd = document.querySelector("#notificacionAdd");
 const search = document.querySelector("#search");
 const btnSearch = document.querySelector("#btnSearch");
+const selectProveedor = document.querySelector("#selectProveedor");
 // get product--->
 const setTableProduct = (products) => {
   let body = "";
@@ -25,7 +25,6 @@ const setTableProduct = (products) => {
   }
   listProduct.innerHTML = body;
 };
-
 const getProducts = async () => {
   loader.classList.remove("d-none");
   try {
@@ -38,9 +37,7 @@ const getProducts = async () => {
 
   loader.classList.add("d-none");
 };
-
 // <--- get producto
-
 // add product----->
 const addProdut = async () => {
   notificacionAdd.classList.remove("d-none");
@@ -54,18 +51,38 @@ const addProdut = async () => {
         categoria: categoria.value,
         precio_menor: precio_menor.value,
         precio_mayor: precio_mayor.value,
+        proveedor_id: selectProveedor.value,
       })
     );
 
-    $("#btnGetProduct").click();
+    getProducts();
     $("#form")[0].reset();
-    // console.log(res.data);
   } catch (err) {
     console.error("No se pudo conectar con el servidor");
   }
 };
 // <--- add product
-btnGetProducts.addEventListener("click", getProducts);
+// proveedores
+const getProveedor = async () => {
+  try {
+    const { data } = await axios.get("/req/proveedores");
+    getListProveedor(data);
+  } catch (error) {}
+};
+const getListProveedor = (proveedores) => {
+  let body = "";
+
+  if (proveedores.length === 0) {
+    proveedores.innerHTML = `<option selected disabled >No hay proveedores registrados</option>`;
+    return;
+  }
+  for (let i = 0; i < proveedores.length; i++) {
+    const proveedor = proveedores[i];
+    body += `<option value="${proveedor.id}">${proveedor.nombre}</option>`;
+  }
+  selectProveedor.innerHTML = body;
+};
+// proveedores
 btnSaveProduct.addEventListener("click", (e) => {
   e.preventDefault();
   addProdut(
@@ -73,7 +90,8 @@ btnSaveProduct.addEventListener("click", (e) => {
     codificacion.value,
     categoria.value,
     precio_menor.value,
-    precio_mayor.value
+    precio_mayor.value,
+    selectProveedor.value
   );
 });
 notificacionRemove.addEventListener("click", (e) => {
@@ -88,3 +106,8 @@ btnSearch.addEventListener("click", async () => {
     console.error("No se pudo conectar con el servidor");
   }
 });
+window.onload = async () => {
+  // await setTableMachine();
+  await getProducts();
+  await getProveedor();
+};

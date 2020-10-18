@@ -1,5 +1,5 @@
-const btnGetMachine = document.querySelector("#btnGetMachine");
 const listMachine = document.querySelector("#listMachine");
+const disminModal = document.querySelector("#disminModal");
 const loader = document.querySelector("#loader");
 const btnSaveMachine = document.querySelector("#btnSaveMachine");
 const notificacionRemove = document.querySelector("#notificacionRemove");
@@ -40,7 +40,6 @@ const getMachines = async () => {
   loader.classList.remove("d-none");
   try {
     const { data } = await axios.get("/req/maquinas/");
-
     setTableMachine(data);
   } catch (err) {
     console.error("No se pudo conectar con el servidor");
@@ -64,7 +63,7 @@ const addMachine = async () => {
         observaciones: observaciones.value,
       })
     );
-    $("#formM")[0].reset();
+    $("#formMachines")[0].reset();
     notificacionAdd.classList.remove("d-none");
 
     getMachines();
@@ -74,7 +73,6 @@ const addMachine = async () => {
 };
 // <---- ad machine
 
-btnGetMachine.addEventListener("click", getMachines);
 btnSaveMachine.addEventListener("click", (e) => {
   e.preventDefault();
   addMachine(
@@ -100,4 +98,18 @@ btnSearch.addEventListener("click", async () => {
   } catch (err) {
     console.error("No se pudo conectar con el servidor");
   }
+});
+
+window.onload = async () => {
+  await getMachines();
+};
+disminModal.addEventListener("click", () => {
+  const msg = document.querySelector("#codificacion");
+  const serial = document.querySelector("#serial");
+  msg.classList.remove("is-invalid");
+  serial.classList.remove("is-invalid");
+  msg.classList.remove("is-valid");
+  serial.classList.remove("is-valid");
+  $("#formMachines")[0].reset();
+  console.log("okidoki");
 });

@@ -1,4 +1,3 @@
-const btnGetherramienta = document.querySelector("#btnGetherramienta");
 const listherramienta = document.querySelector("#listherramienta");
 const loader = document.querySelector("#loader");
 const notificacionAdd = document.querySelector("#notificacionAdd");
@@ -65,7 +64,9 @@ const addHerramienta = async () => {
 // <--- add product
 
 // ------> eventos
-btnGetherramienta.addEventListener("click", getherramientas);
+window.onload = async () => {
+  await getherramientas();
+};
 saveHerramienta.addEventListener("click", (e) => {
   e.preventDefault();
   addHerramienta(nombre.value, detalles.value, cantidad.value, tipo.value);

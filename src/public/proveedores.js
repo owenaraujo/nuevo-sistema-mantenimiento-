@@ -77,6 +77,7 @@ const getListProveedores = (proveedores) => {
   listProveedores.innerHTML = body;
 };
 // list add
+
 // get
 const getProducts = async () => {
   try {
