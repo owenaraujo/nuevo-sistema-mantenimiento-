@@ -14,7 +14,7 @@ passport.use(
     },
     async (req, username, password, done) => {
       const rows = await pool.query(
-        "SELECT id,username,password FROM usuarios WHERE username = ? and estado=1",
+        "SELECT id,username,password FROM usuarios WHERE username = ? ",
         [username]
       );
       if (rows.length > 0) {

@@ -8,20 +8,20 @@ const flash = require("connect-flash");
 const MySQLStore = require("express-mysql-session")(session);
 const bodyParser = require("body-parser");
 const { database } = require("./keys");
-const app = express();
+const serv = express();
 require("./lib/passport");
-app.set("port", process.env.PORT || 3000);
+serv.set("port", process.env.PORT || 3000);
 
 // vistas
-app.engine("ejs", require("express-ejs-extend"));
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
+serv.engine("ejs", require("express-ejs-extend"));
+serv.set("views", path.join(__dirname, "views"));
+serv.set("view engine", "ejs");
+serv.use(express.json());
 // configuraciones
-app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(
+serv.use(morgan("dev"));
+serv.use(bodyParser.urlencoded({ extended: false }));
+// serv.use(bodyParser.json());
+serv.use(
   session({
     secret: "secret",
     resave: false,
@@ -29,31 +29,29 @@ app.use(
     store: new MySQLStore(database),
   })
 );
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(validator());
-app.use((req, res, next) => {
-  app.locals.message = req.flash("message");
-  app.locals.success = req.flash("success");
-  app.locals.user = req.user;
+serv.use(flash());
+serv.use(passport.initialize());
+serv.use(passport.session());
+serv.use(validator());
+serv.use((req, res, next) => {
+  serv.locals.message = req.flash("message");
+  serv.locals.success = req.flash("success");
+  serv.locals.user = req.user;
   next();
 });
 // rutas
-app.use(require("./routes/authentication"));
-app.use("/views", require("./routes/views"));
-app.use("/req", require("./routes/req"));
-app.use("/post", require("./routes/post"));
-app.use("/delete", require("./routes/delete"));
-app.use("/edit", require("./routes/edit"));
-app.use("/mantenimiento", require("./routes/mantain"));
-// public
-app.use(express.static(path.join(__dirname, "public")));
+serv.use(require("./routes/authentication"));
 
-app.use((req, res) => {
-  res.status(404).render("./error");
+serv.use("/post", require("./routes/post"));
+serv.use("/req", require("./routes/req"));
+
+// public
+serv.use(express.static(path.join(__dirname, "public")));
+
+serv.use((req, res) => {
+  res.status(404).render("error");
 });
 
-app.listen(app.get("port"), () => {
-  console.log("Server is in port", app.get("port"));
+serv.listen(serv.get("port"), () => {
+  console.log("Server is in port", serv.get("port"));
 });

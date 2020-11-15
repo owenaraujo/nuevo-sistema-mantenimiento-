@@ -12,7 +12,7 @@ const app = express();
 router.post(
   "/signup",
   passport.authenticate("local.signup", {
-    successRedirect: "/profile",
+    successRedirect: "/index",
     failureRedirect: "/",
     failureFlash: true,
   })
@@ -32,7 +32,7 @@ router.post("/signin", isNotLoggedIn, (req, res, next) => {
     res.redirect("/");
   }
   passport.authenticate("local.signin", {
-    successRedirect: "/profile",
+    successRedirect: "/index",
     failureRedirect: "/",
     failureFlash: true,
   })(req, res, next);
@@ -43,39 +43,8 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-router.get("/profile", isLoggedIn, async (req, res) => {
-  const equipos = await pool.query(
-    "SELECT count(*) from lista_maquinas WHERE user_id= ?",
-    [req.user.id]
-  );
-
-  const equipos_0 = await pool.query(
-    "SELECT count(*) from lista_maquinas WHERE user_id= ? and estado = 0",
-    [req.user.id]
-  );
-  const registroproduct = await pool.query(
-    "SELECT count(*) FROM lista_productos"
-  );
-
-  const { rol } = req.user;
-
-  // verify is adminstrator
-  if (rol == "administrador") {
-    const lista_usuarios = await pool.query("SELECT * FROM usuarios");
-
-    res.render("profile", {
-      registroproduct,
-      equipos,
-      equipos_0,
-      lista_usuarios,
-      rol,
-    });
-
-    return;
-  }
-  console.log("no eres administrador");
-  res.render("profile", { registroproduct, equipos, equipos_0 });
-  console.log(equipos);
+router.get("/index", isLoggedIn, async (req, res) => {
+  res.render("index");
 });
 
 router.get("/profile/administracion", isLoggedIn, async (req, res) => {

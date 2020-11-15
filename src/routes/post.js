@@ -2,136 +2,67 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../database");
 
+const passport = require("passport");
+const { isLoggedIn } = require("../lib/auth");
+const { isNotLoggedIn } = require("../lib/auth");
+const { query } = require("express");
 const app = express();
-// proveedores
-router.post("/proveedores", async (req, res) => {
-  const { nombre, telefono, correo } = req.body;
-  const proveedor = { nombre, telefono, correo, user_id: req.user.id };
-  const addProveedor = await pool.query(" insert into proveedores set ?", [
-    proveedor,
-  ]);
-  res.json(addProveedor);
-});
-// proveedores
-// productos ---->
-router.post("/productos/", async (req, res) => {
-  const {
-    producto,
-    codificacion,
-    categoria,
-    precio_menor,
-    precio_mayor,
-    proveedor_id,
-  } = req.body;
-  const productos = {
-    producto,
-    codificacion,
-    categoria,
-    precio_menor,
-    precio_mayor,
-    proveedor_id,
-  };
-  const addproduct = await pool.query("insert into lista_productos set ?", [
-    productos,
-  ]);
-  // console.log(req.body);
-  res.json(addproduct);
-});
-// <-----productos
-// mquinas ---->
-router.post("/maquinas", async (req, res) => {
-  const {
-    equipo,
-    codificacion,
-    tipo,
-    serial,
-    marca,
-    modelo,
-    funcionamiento,
-    observaciones,
-  } = req.body;
-  const machines = {
-    equipo,
-    codificacion,
-    tipo,
-    serial,
-    marca,
-    modelo,
-    funcionamiento,
-    observaciones,
+router.post("/contribuyentes", async (req, res) => {
+  const { contribuyente, rif, cuidad, estado, sede, iseniat } = req.body;
+  const contribuyentes = {
+    contribuyente,
+    rif,
+    cuidad,
+    estado,
+    sede,
+    iseniat,
     user_id: req.user.id,
   };
-  const addMachine = await pool.query("insert into lista_maquinas set ?", [
-    machines,
+  const send = await pool.query("insert into contribuyentes set ?", [
+    contribuyentes,
   ]);
-  res.json(addMachine);
-  console.log(addMachine);
+  res.json(send);
 });
-// <-----maquinas
-// herramientas--->
-router.post("/herramientas/", async (req, res) => {
-  const { tipo, nombre, detalles, cantidad } = req.body;
-  const newherramienta = {
-    tipo,
-    nombre,
-    detalles,
-    cantidad,
-    user_id: req.user.id,
-  };
-  await pool.query("INSERT INTO herramientas set ?", [newherramienta]);
-  res.json(newherramienta);
+router.post("/contribuyentes/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const { contribuyente, rif } = req.body;
+  const send = await pool.query(
+    "update  contribuyentes set contribuyente = ?, rif = ? where id= ? limit 1",
+    [contribuyente, rif, id]
+  );
+  res.json(send);
 });
-// <---- herramientas
-// piezas ---->
-router.post("/piezas/add", async (req, res) => {
-  const {
-    nombre_pieza,
-    pieza_equipo_id,
-    detalles,
-    subsistema,
-    funcionamiento,
-    medidas,
-    codificacion,
-  } = req.body;
-  const pieza = {
-    nombre_pieza,
-    pieza_equipo_id,
-    detalles,
-    subsistema,
-    funcionamiento,
-    medidas,
-    codificacion,
-  };
-  const addpieza = await pool.query("insert into piezas set ?", [pieza]);
-
-  res.json(addpieza);
-});
-// <-----piezas
-// post
-router.post("/mantenimiento/add/", async (req, res) => {
-  const { tipo, descripcion, frecuencia, piezas_id, equipo_id } = req.body;
-  const mantenimiento = {
-    tipo,
-    descripcion,
-    // personal,
-    frecuencia,
-    piezas_id,
-    equipo_id,
-  };
-
-  try {
-    const addmantience = await pool.query(
-      "INSERT INTO  mantenimiento_piezas SET ?",
-      [mantenimiento]
-    );
-    res.json(addmantience);
-  } catch (error) {
-    console.log(error);
-    res.send({
-      msg: "XDXD",
-    });
-  }
-});
-// post
 module.exports = router;
 app;
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const borrar = await pool.query("delete  from contribuyentes where id =?", [
+    id,
+  ]);
+  res.json(borrar);
+});
+router.get("/visitas/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const borrar = await pool.query("delete  from visitas where id =?", [id]);
+  res.json(borrar);
+});
+router.post("/visita/", async (req, res) => {
+  const {
+    id_contribuyente,
+    tipo_consulta,
+    motivo,
+    detalles,
+    observacion,
+  } = req.body;
+  const visita = {
+    id_contribuyente,
+    tipo_consulta,
+    motivo,
+    detalles,
+    observacion,
+    user_id: req.user.id,
+  };
+  const insercion = await pool.query("insert into  visitas set ?", [visita]);
+  res.json(insercion);
+  console.log(detalles);
+});

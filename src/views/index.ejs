@@ -1,0 +1,93 @@
+<%- extend ('layout/layout',{title: 'index'}) %> <%- include ('partials/nav') %>
+<%- include ('partials/modal') %> <%- include
+('partials/modalEditContribuyente') %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group" class="card">
+            <form id="formcontribuyentes" action="">
+              <select class="form-control custom-select mb-2" id="iseniat">
+                <option selected disabled value="">seleccione un status</option>
+                <option value="activo">activo</option>
+                <option value="inactivo">inactivo</option>
+              </select>
+
+              <div class="row mx-1">
+                <select class="custom-select col-3" name="" id="nacionalidad">
+                  <option value="V-">V</option>
+                  <option value="E-">E</option>
+                </select>
+                <input
+                  autocomplete="off"
+                  class="form-control mb-2 col-8 mx-2"
+                  type="text"
+                  id="rif"
+                  placeholder="rif"
+                />
+              </div>
+              <input
+                autocomplete="off"
+                class="form-control mb-2"
+                type="text"
+                id="contribuyente"
+                placeholder="contribuyente"
+              />
+              <select
+                class="form-control custom-select mb-2"
+                name=""
+                id="estado"
+              ></select>
+
+              <select
+                class="form-control custom-select mb-2"
+                id="municipio"
+              ></select>
+              <select
+                class="form-control custom-select mb-2"
+                id="parroquia"
+              ></select>
+
+              <div id="boton">
+                <input class="btn btn-primary" type="reset" value="Reset" />
+                <button id="btnregistrar" class="btn btn-success">
+                  registrar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col 6">
+      <div class="list-scroll2">
+        <div class="card">
+          <table class="table table-hover table-sm text-center text-capitalize">
+            <thead class="card-header">
+              <tr>
+                <th>N°</th>
+                <th>contribuyente</th>
+                <th>rif</th>
+                <th>status</th>
+                <th>acciones</th>
+              </tr>
+            </thead>
+            <tbody class="card-body" id="listcontribuyentes"></tbody>
+          </table>
+        </div>
+      </div>
+      <table class="table table-hover table-sm text-center text-capitalize">
+        <TFoot class="card-footer">
+          <th>N°</th>
+          <th>contribuyente</th>
+          <th>rif</th>
+          <th>status</th>
+          <th>acciones</th>
+        </TFoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="contribuyentes.js"></script>

@@ -1,5 +1,4 @@
-<!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-danger">
   <a class="navbar-brand" href="#">Navbar</a>
   <button
     class="navbar-toggler"
@@ -13,50 +12,36 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/views/productos"
-          >productos
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/views/herramientas">herramientas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/views/maquinas">equipos</a>
-      </li>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
       <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          id="navbarDropdownMenuLink-333"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          >Dropdown
-        </a>
-        <div
-          class="dropdown-menu dropdown-default"
-          aria-labelledby="navbarDropdownMenuLink-333"
+        <form id="formSearch" class="form-inline my-1">
+          <div class="md-form form-sm my-0">
+            <input
+              id="search"
+              autocomplete="off"
+              onfocus="this.value=''"
+              class="form-control form-control-sm mr-sm-2 mb-0"
+              type="text"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </div>
+          <button
+            id="btnSearch"
+            class="btn btn-outline-white btn-sm my-0"
+            type="submit"
           >
-          <a class="dropdown-item" href="/views/mantenimiento">mantenimiento</a>
-          <a class="dropdown-item" href="/views/proveedores">proveedores</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+            Buscar
+          </button>
+        </form>
       </li>
     </ul>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto"></ul>
+
     <ul class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light">
-          <i class="fab fa-google-plus-g"></i>
-        </a>
-      </li>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -71,14 +56,11 @@
           class="dropdown-menu dropdown-menu-right dropdown-default"
           aria-labelledby="navbarDropdownMenuLink-333"
         >
-          <a class="dropdown-item" href="#"
-            ><%- user.username %></a
-          >
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="/logout"><%= user.username %> </a>
+
           <a class="dropdown-item" href="/logout">Salir</a>
         </div>
       </li>
     </ul>
   </div>
 </nav>
-<!--/.Navbar -->

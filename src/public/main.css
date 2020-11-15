@@ -1,3 +1,30 @@
+@keyframes load {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.main {
+  width: 100%;
+  height: 10rem;
+}
+.parent {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.child {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: calc(100% + 20px);
+  overflow-y: auto;
+}
 body {
   height: 100vh;
 }
@@ -28,9 +55,6 @@ body {
 .form-control:focus {
   box-shadow: 2px 2px 0.75rem -2px rgba(0, 0, 0, 0.308);
   border-color: #bdbcbc;
-}
-.btn {
-  border-radius: 1rem;
 }
 
 /* .modal .modal-full-height {
@@ -79,27 +103,42 @@ body {
 .ajuste {
   position: relative;
 }
+.contenedor {
+  position: sticky;
+}
+
+.caja-search {
+  width: 36px;
+  height: 36px;
+  border-radius: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  z-index: 100;
+  display: flex;
+  color: white;
+}
 .caja {
   width: 50px;
   height: 50px;
-  position: absolute;
-  right: 1rem;
-  /* top: 0.25rem; */
-  /* left: 0rem; */
+  left: 1rem;
+  position: fixed;
+  bottom: 0.5rem;
+  display: inline-block;
+
   color: white;
   border-radius: 2.5rem;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+  z-index: 100;
+  display: flex;
 }
 .boton-circular {
   width: 35px;
   height: 35px;
   position: relative;
-  /* right: 1rem; */
-  /* top: 0.25rem; */
-  /* left: 0rem; */
+
   color: #fff;
   border-radius: 2.5rem;
   display: flex;
@@ -128,23 +167,116 @@ body {
 }
 
 .list-scroll {
-  height: 80vh;
+  height: 40vh;
+  overflow-y: auto;
+}
+.absolute {
+  position: absolute;
+  z-index: 1000;
+}
+.list-scroll2 {
+  height: 75vh;
   overflow-y: auto;
 }
 
 .c-hand {
   cursor: pointer;
-  opacity: 0.9;
+
   transition: all 0.5s ease;
 }
 .c-hand:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 .c-hand:active {
   transform: scale(0.95);
+  opacity: 0.9;
+}
+.alertNav {
+  width: 200px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -25px;
+  position: absolute;
+}
+.back {
+  background: #000000;
+  position: absolute;
+
+  top: 0px;
+
+  left: 0px;
+
+  width: 100%;
+
+  height: 150%;
+  filter: alpha(opacity=50);
+
+  opacity: 0.5;
+}
+.editAlert {
+  width: 200px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+.button-machine {
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  margin: 10px;
+  display: inline-flex;
+}
+
+.loading-box {
+  width: 100%;
+  height: 100vh;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 0;
+  z-index: 1200;
+}
+.loading-animate {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -2.5rem;
+  margin-top: -2.5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 5px solid;
+  border-color: #960200 #960200 transparent;
+  animation: load 0.7s linear infinite;
+}
+
+.div-p-5 {
+  width: 100%;
+  height: 6em;
+}
+.div-p-4 {
+  width: 100%;
+  height: 4em;
+}
+.scroll {
+  overflow: hidden;
 }
 @media screen and (max-width: 640px) {
   .list-scroll {
     height: calc(80vh / 3);
   }
+}
+.p-left {
+  left: 1em;
 }

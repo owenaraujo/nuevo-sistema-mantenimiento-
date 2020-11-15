@@ -1,11 +1,10 @@
 {
-  "name": "nodejs-mysql-notes",
+  "name": "sistema-contribuyentes",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
