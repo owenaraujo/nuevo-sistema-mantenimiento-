@@ -1,16 +1,9 @@
+require("dotenv").config();
 module.exports = {
   database: {
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "sistema_contribuyentes",
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB,
   },
 };
-// module.exports = {
-//   database: {
-//     host: "bz0xjhxhz6tjnzaexpex-mysql.services.clever-cloud.com",
-//     user: "upgpxzlo6c477mrh",
-//     password: "QWHXzCR78uZejRjqZAo3",
-//     database: "bz0xjhxhz6tjnzaexpex",
-//   },
-// };

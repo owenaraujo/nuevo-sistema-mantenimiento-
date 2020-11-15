@@ -17,6 +17,7 @@ serv.engine("ejs", require("express-ejs-extend"));
 serv.set("views", path.join(__dirname, "views"));
 serv.set("view engine", "ejs");
 serv.use(express.json());
+require("dotenv").config();
 // configuraciones
 serv.use(morgan("dev"));
 serv.use(bodyParser.urlencoded({ extended: false }));
