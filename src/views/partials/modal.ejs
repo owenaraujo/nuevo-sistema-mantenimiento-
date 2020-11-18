@@ -8,12 +8,13 @@
   aria-hidden="true"
 >
   <!-- Change class .modal-sm to change the size of the modal -->
-  <div class="container pt-2">
+  <div class=" pt-2">
     <div class="modal-dialog-srcollable modal-bottom" role="document">
-      <form id="formMachines">
+      
         <div class="modal-content">
           <div class="px-2">
             <div class="row">
+              <!-- formulario  -->
               <div class="col-3 pt-2 pb-2">
                 <div class="card">
                   <div class="card-body">
@@ -24,8 +25,8 @@
                           <option selected disabled value="">
                            tipo de consulta
                           </option>
-                          <option value="pg">activo</option>
-                          <option value="palgo">inactivo</option>
+                          <option value="PN">PN</option>
+                          <option value="PG">PG</option>
                         </select>
                         
                         <input
@@ -47,7 +48,7 @@
                         placeholder="observaciones"
                       /></textarea>
 
-                        <div id="">
+                        <div class="text-center">
                           <button id="registrarVisita" class="btn btn-success">
                             registrar
                           </button>
@@ -57,14 +58,15 @@
                   </div>
                 </div>
               </div>
-
-              <div class="col-9 pt-3">
+<!-- formulario  -->
+              <div class="col-9 pt-2">
                 <div class="row">
-                  <div class="col-3">
+                  <!-- search -->
+                  <div class="col-5">
                     <div class="row">
                       <input
-                        class="form-control col-6"
-                        type="text"
+                        class="form-control col-8 text-center"
+                        type="date"
                         placeholder="search"
                       />
                       <div class="caja-search bg-primary c-hand mx-2">
@@ -74,23 +76,32 @@
                       </div>
                       <!-- <button class="btn btn-sm btn-primary col-3">s</button> -->
                     </div>
-                  </div>
-                  <div id="" class="col-7 card">
-                    <div id="modalInfoContribuyente">
-
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Panel title</h5>
+                        <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>
+                        <a class="card-link">Card link</a>
+                        <a class="card-link">Another link</a>
+                      </div>
                     </div>
-<div class="container-fluid text-center">
-  <div class=" row mt-2">
-    <div id="InfoParroquia"></div>
+                  </div>
+                  <!-- search  -->
+                  <div id="" class="col-7">
+                    <div class="card text-center">
+                      <div class="" id="modalInfoContribuyente">
 
-    <p class="">,<p></p>
-    <div id="InfoMunicipio"></div>
-
-    <p class="">,<p></p>
-    <div id="InfoEstado"></div>
-
-   </div>
-</div>
+                      </div>
+                          
+                              <div class="card-text">
+                                <span  id="InfoParroquia"></span>
+                               /
+                                <span id="InfoMunicipio"></span>
+                                /
+                                <span id="InfoEstado"></span>
+  
+                              </div>
+                            
+                    </div>
                   </div>
                 </div>
                 <div class="row">
@@ -129,6 +140,7 @@
               </div>
             </div>
           </div>
+          <!-- footer -->
           <div class="modal-footer">
             <button
               id="btnCerrar"
@@ -138,8 +150,11 @@
               cerrar
             </button>
           </div>
+          <!-- footer -->
         </div>
-      </form>
+      
+      
+      
     </div>
   </div>
 </div>

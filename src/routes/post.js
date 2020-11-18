@@ -43,7 +43,7 @@ router.get("/delete/:id", async (req, res) => {
 });
 router.get("/visitas/delete/:id", async (req, res) => {
   const { id } = req.params;
-  const borrar = await pool.query("delete  from visitas where id =?", [id]);
+  const borrar = await pool.query("delete from visitas where id =?", [id]);
   res.json(borrar);
 });
 router.post("/visita/", async (req, res) => {

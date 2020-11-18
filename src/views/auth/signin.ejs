@@ -1,12 +1,26 @@
 
-<div class="container-fluid">
    <div class="row">
-    <div class="col-6">
-        <h1>hola mundo</h1>
+<div class="col-1"></div>
+
+    <div class="col-4">
+<div class="">
+    <div id="options" class="">
+        <div class="text-center">
+            <button onclick="registrar()" class="btn  btn-primary ">Registrar</button>
+            <button class="btn btn-success ">¿olvidó su contraseña? </button>
+        </div>
     </div>
-    <div class="col-6 pb-4">
+</div>        
+<div class="row">
+    <div class="container">
+        
+    </div>
+</div>
+</div>
+<div class="col-2"></div>
+    <div class="col-4">
         <div class="card">
-            <div class="card-header"><h1 class=" pt-2 h3 text-center">inicio de session</h1></div>
+            <div class="card-header"><h1 class=" h3 text-center">inicio de session</h1></div>
             <div class="card-body">
                 <form action="/signin" method="POST">
                     <!--Body-->
@@ -20,7 +34,7 @@
                             <label data-error="wrong" data-success="right"
                                 for="modalLRInput10">Ingrese su Usuario</label>
                         </div>
-                        <label id="msgUser"></label>
+                        <!-- <label id="msgUser"></label> -->
         
                         <div class=" md-form">
                             <i class="fas fa-lock prefix"></i>
@@ -40,5 +54,8 @@
             </div>
         </div>
     </div>
+<div class="col-1"></div>
+    
    </div>
-</div>
+
+<script src="/main.js"></script>

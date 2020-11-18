@@ -1,22 +1,37 @@
-<% extend('layout/layout') %>
+<% extend('layout/layout') %> <%- include ('partials/mensaje') %>
 <div class="container-fluid">
   <div class="col-12 mai h5 p-3">
     <div class="row">
       <div class="col-3 text-center">logo iut</div>
       <div class="col-6 text-center">
-        SOFTWARE ADMINISTRATIVO PARA LA VERIFICACION CONTABLE DE LOS
-        CONTRIBUYENTES ESPECIALES EN EL SERVICIO NACIONAL INTEGRADO DE
-        ADMINISTRACION ADUANERA Y TRIBUTARIA (SENIAT) SECTOR LA FRIA.
+        Software administrativo para la verificación contable de los
+        contribuyentes especiales
       </div>
-      <div class="col-3 text-center">logo seniat</div>
+      <div class="col-3 text-center">
+        <img class="img-fluid" src="/seniat.jpg" alt="" />
+      </div>
     </div>
   </div>
+  <%- include ('auth/signin') %>
 </div>
-<%- include ('auth/signin') %>
+<% if (message) { %>
 <script>
-  window.onload = () => {
-    document.querySelector("#load").classList.add("d-none");
-
-    document.querySelector("#scroll").classList.remove("scroll");
-  };
+  const alertaMessage = document.querySelector("#alerta");
+  alertaMessage.innerHTML += `<div
+    class="alert alert-danger alert-dismissible fade show d-none"
+    role="alert"
+    id="message"
+  ><%= message %>
+    <div id=""></div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`;
+  if ("<%= message %>") {
+    document.querySelector("#message").classList.remove("d-none");
+  }
+</script>
+<% } %>
+<script>
+  window.onload = () => {};
 </script>

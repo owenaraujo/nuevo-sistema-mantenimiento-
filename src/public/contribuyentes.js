@@ -1,12 +1,19 @@
 const listcontribuyentes = document.querySelector("#listcontribuyentes");
+const estadoInfo = document.querySelector("#InfoEstado");
+
 const parroquiaLista = document.querySelector("#parroquia");
 const municipioLista = document.querySelector("#municipio");
 const estadosLista = document.querySelector("#estado");
+const municipioInfo = document.querySelector("#InfoMunicipio");
+const parroquiaInfo = document.querySelector("#InfoParroquia");
 const modal = document.querySelector("#modal");
 const modalVisitas = document.querySelector("#visitas");
 const registrarVisita = document.querySelector("#registrarVisita");
+const alertConten = document.querySelector("#alertConten");
 const modaleditOculto = document.querySelector("#modaleditOculto");
 const formContribuyente = document.querySelector("#formContribuyente");
+const alerta = document.querySelector("#alerta");
+const alertaContent = document.querySelector("#alerta").innerHTML;
 // const notificacionAdd = document.querySelector("#notificacionAdd");
 // const btnEdit = document.querySelector("#btnEdit");
 
@@ -128,7 +135,7 @@ const listInfocontribuyentes = (data) => {
  value="${visita.id}"
  placeholder="search"
 />`;
-    list += `<div class="row text-center card-header">
+    list += `<div class="row">
     <p class="col-6 mt-2">RIF N°: ${visita.rif}</p>
     <p class="col-6 mt-2">${visita.contribuyente}</p>
   </div>
@@ -140,39 +147,49 @@ const listInfocontribuyentes = (data) => {
 const InfoContribuyente = async (id) => {
   const { data } = await axios.get(`/req/visitas/contribuyente/${id}`);
   const [datos] = data;
-  listInfocontribuyentes(data);
-  vistaEstado(datos.estado);
-  vistaMunicipio(datos.cuidad);
-  vistaParroquia(datos.sede);
-  console.log(datos);
+  const estado = datos.estado;
+  const cuidad = datos.cuidad;
+  const sede = datos.sede;
+  await listInfocontribuyentes(data);
+  await vistaEstado(estado);
+  await vistaMunicipio(cuidad);
+  await vistaParroquia(sede);
 
-  modal.classList.remove("d-none");
-  modalVisitas.innerHTML = ``;
+  await modal.classList.remove("d-none");
 };
 // consulta estado
 const vistaEstado = async (estado) => {
-  const { data } = await axios.get(`/req/estados/${estado}`);
-  const [datos] = data;
-  document.querySelector("#InfoEstado").innerHTML = `<p>${datos.estado}</p>`;
+  try {
+    const { data } = await axios.get(`/req/estados/${estado}`);
+    const [datos] = data;
+    estadoInfo.innerHTML = `${datos.estado}`;
+  } catch (error) {
+    console.log("no encontrado estado");
+  }
 };
 
 // consulta estado
 // consulta municipio
 const vistaMunicipio = async (municipio) => {
-  const { data } = await axios.get(`/req/municipio/${municipio}`);
-  const [datos] = data;
-  document.querySelector(
-    "#InfoMunicipio"
-  ).innerHTML = `<p>${datos.municipio}</p>`;
+  try {
+    const { data } = await axios.get(`/req/municipio/${municipio}`);
+    const [datos] = data;
+    if (municipio.length === 0) {
+      console.log("hola");
+      return;
+    }
+    municipioInfo.innerHTML = `${datos.municipio}`;
+  } catch (error) {
+    // console.log("no encontrado municipio");
+  }
 };
 // consulta municipio
 // consulta parroquia
-const vistaParroquia = async (parroquia) => {
-  const { data } = await axios.get(`/req/visitas/parroquia/${parroquia}`);
+const vistaParroquia = async (id) => {
+  const { data } = await axios.get(`/req/visitas/parroquia/${id}`);
   const [datos] = data;
-  document.querySelector(
-    "#InfoParroquia"
-  ).innerHTML = `<p>${datos.parroquia}</p>`;
+
+  parroquiaInfo.innerHTML = `${datos.parroquia}`;
 };
 // consulta parroquia
 const lisVisitas = (data) => {
@@ -193,6 +210,10 @@ const lisVisitas = (data) => {
     <div class="btn btn-danger btn-sm" onclick="deleteVisita(${
       visita.id
     })">eliminar</div>
+    <btn class="btn btn-blue btn-sm "onclick="alert('${visita.detalles} ${
+      visita.observacion
+    }')"> info  
+      </btn>
     </th>
     </tr>`;
   }
@@ -200,7 +221,7 @@ const lisVisitas = (data) => {
 };
 const deleteVisita = async (id) => {
   await axios.get(`/post/visitas/delete/${id}`);
-  InfoVisistas();
+  InfoVisistas(id_contribuyente.value);
 
   modal.classList.remove("d-none");
 };
@@ -279,8 +300,6 @@ const insertOptionsparroquias = (data) => {
 
 // add product----->
 const addContribuyente = async () => {
-  // notificacionAdd.classList.remove("d-none");
-
   try {
     await axios.post(
       "/post/contribuyentes/",
@@ -295,14 +314,24 @@ const addContribuyente = async () => {
     );
 
     $("#formcontribuyentes")[0].reset();
+
+    alerta.innerHTML += ` <div
+      class="alert alert-success alert-dismissible fade show "
+      role="alert"
+      id=""
+    >
+    <strong>exitoso!</strong> el contribuyente fue agregado
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>`;
+
     getContribuyentes();
   } catch (err) {
     console.error("No se pudo conectar con el servidor");
   }
 };
 const addVisita = async () => {
-  // notificacionAdd.classList.remove("d-none");
-
   try {
     await axios.post(
       "/post/visita/",
@@ -314,22 +343,35 @@ const addVisita = async () => {
         observacion: observaciones.value,
       })
     );
-
     InfoVisistas(id_contribuyente.value);
-    formModalVisita.reset();
+    // formModalVisita.reset();
   } catch (err) {
     console.error("No se pudo conectar con el servidor");
   }
 };
 const cerrarModal = () => {
   modal.classList.add("d-none");
-  modalVisitas.innerHTML = `holi`;
+  modalVisitas.innerHTML = ``;
+  estadoInfo.innerHTML = ``;
+  municipioInfo.innerHTML = ``;
+  parroquiaInfo.innerHTML = ``;
 };
-// <--- add product
+const alertclass = document.querySelector("#alertClass");
 // delete contribuyente
 const deleteContribuyente = async (id) => {
   try {
     await axios.get(`/post/delete/${id}`);
+
+    alerta.innerHTML += ` <div
+    class="alert alert-danger alert-dismissible fade show "
+    role="alert"
+    id=""
+  >
+  <strong>Borrado!</strong> el contribuyente fue borrado
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`;
     getContribuyentes();
   } catch (error) {
     console.error("error en delete contribuyente ");
@@ -353,13 +395,7 @@ btnregistrar.addEventListener("click", (e) => {
     nacionalidad.value
   );
 });
-document.querySelector("#btnCerrar").addEventListener("click", (e) => {
-  e.preventDefault();
-});
-// notificacionRemove.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   notificacionAdd.classList.add("d-none");
-// });
+
 registrarVisita.addEventListener("click", (e) => {
   e.preventDefault();
   try {

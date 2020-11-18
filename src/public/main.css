@@ -170,15 +170,58 @@ body {
   height: 40vh;
   overflow-y: auto;
 }
+.list-scroll-main {
+  height: 55vh;
+  overflow-y: auto;
+}
+
 .absolute {
   position: absolute;
   z-index: 1000;
+  width: 23em;
+  height: 50px;
+  align-items: center;
+  align-content: center;
+  right: 1rem;
+}
+.NotificationMain {
+  position: absolute;
+  z-index: 1000;
+  width: 30rem;
+  height: 5rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -15rem;
+  margin-top: -15rem;
+  align-items: center;
+  align-content: center;
+}
+
+.NotificationIndex {
+  position: absolute;
+  z-index: 1000;
+  width: 20rem;
+  height: 5rem;
+  top: 0%;
+  right: 6%;
+  margin-left: -31rem;
+  margin-top: 10px;
+  align-items: center;
+  align-content: center;
 }
 .list-scroll2 {
   height: 75vh;
   overflow-y: auto;
 }
-
+.error {
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  left: 50%;
+  top: 50%;
+  margin-top: -150px;
+  margin-left: -200px;
+}
 .c-hand {
   cursor: pointer;
 

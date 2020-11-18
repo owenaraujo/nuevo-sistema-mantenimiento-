@@ -34,7 +34,7 @@ passport.use(
           false,
           req.flash(
             "message",
-            "El usuario no existe o su administrador no lo ha activado"
+            "El usuario no existe"
           )
         );
       }
@@ -51,14 +51,12 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, username, password, done) => {
-      const { fullname, telefono, correo, c_i } = req.body;
+      const { pregunta_seguridad, respuesta } = req.body;
       let newUser = {
         username,
         password,
-        fullname,
-        telefono,
-        correo,
-        c_i,
+        pregunta_seguridad,
+        respuesta,
       };
       newUser.password = await helpers.encryptPassword(password);
       // Saving in the Database
